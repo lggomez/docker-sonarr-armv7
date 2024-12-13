@@ -13,6 +13,7 @@ LABEL maintainer="lggomez"
 ENV XDG_CONFIG_HOME="/config/xdg"
 ENV SONARR_CHANNEL="v4-stable"
 ENV SONARR_BRANCH="main"
+ENV COMPlus_EnableDiagnostics="0"
 
 RUN \
   echo "**** install packages ****" && \
@@ -35,6 +36,7 @@ RUN \
     /tmp/sonarr.tar.gz -C \
     /app/sonarr/bin --strip-components=1 && \
   echo -e "UpdateMethod=docker\nBranch=${SONARR_BRANCH}\nPackageVersion=${VERSION:-LocalBuild}\nPackageAuthor=[linuxserver.io](https://linuxserver.io)" > /app/sonarr/package_info && \
+  printf "Linuxserver.io version: ${VERSION}\nBuild-date: ${BUILD_DATE}" > /build_version && \
   echo "**** cleanup ****" && \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf \
