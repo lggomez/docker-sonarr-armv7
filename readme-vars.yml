@@ -7,6 +7,7 @@ project_logo: "https://raw.githubusercontent.com/linuxserver/docker-templates/ma
 project_blurb: |
   [{{ project_name|capitalize }}]({{ project_url }}) (formerly NZBdrone) is a PVR for usenet and bittorrent users. It can monitor multiple RSS feeds for new episodes of your favorite shows and will grab, sort and rename them. It can also be configured to automatically upgrade the quality of files already downloaded when a better quality format becomes available.
 project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
+project_categories: "Media Management"
 # supported architectures
 available_architectures:
   - {arch: "{{ arch_x86_64 }}", tag: "amd64-latest"}
@@ -29,6 +30,7 @@ param_usage_include_ports: true
 param_ports:
   - {external_port: "8989", internal_port: "8989", port_desc: "The port for the Sonarr web interface"}
 readonly_supported: true
+nonroot_supported: true
 # application setup block
 app_setup_block_enabled: true
 app_setup_block: |
@@ -58,22 +60,18 @@ init_diagram: |
     init-migrations -> init-adduser
     init-os-end -> init-config
     init-config -> init-config-end
+    init-crontab-config -> init-config-end
     init-sonarr-config -> init-config-end
-    init-os-end -> init-crontab-config
+    init-config -> init-crontab-config
     init-mods-end -> init-custom-files
     base -> init-envfile
     base -> init-migrations
-    base -> init-mods
     init-config-end -> init-mods
-    init-mods -> init-mods-end
     init-mods-package-install -> init-mods-end
     init-mods -> init-mods-package-install
-    base -> init-os-end
     init-adduser -> init-os-end
     init-envfile -> init-os-end
-    init-migrations -> init-os-end
     init-custom-files -> init-services
-    init-mods-end -> init-services
     init-config -> init-sonarr-config
     init-services -> svc-cron
     svc-cron -> legacy-services
@@ -81,11 +79,13 @@ init_diagram: |
     svc-sonarr -> legacy-services
   }
   Base Images: {
-    "baseimage-alpine:3.20"
+    "baseimage-alpine:3.21"
   }
   "sonarr:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "09.01.25:", desc: "Fix rootless entrypoint."}
+  - {date: "23.12.24:", desc: "Rebase Alpine 3.21."}
   - {date: "31.05.24:", desc: "Rebase Alpine 3.20."}
   - {date: "12.01.24:", desc: "Update download url."}
   - {date: "30.12.23:", desc: "Rebase master branch to Alpine 3.19."}
