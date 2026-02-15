@@ -5,7 +5,6 @@
 [![Blog](https://img.shields.io/static/v1.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=linuxserver.io&message=Blog)](https://blog.linuxserver.io "all the things you can do with our containers including How-To guides, opinions and much more!")
 [![Discord](https://img.shields.io/discord/354974912613449730.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=Discord&logo=discord)](https://linuxserver.io/discord "realtime support / chat with the community and the team.")
 [![Discourse](https://img.shields.io/discourse/https/discourse.linuxserver.io/topics.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&logo=discourse)](https://discourse.linuxserver.io "post on our community forum.")
-[![Fleet](https://img.shields.io/static/v1.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=linuxserver.io&message=Fleet)](https://fleet.linuxserver.io "an online web interface which displays all of our maintained images.")
 [![GitHub](https://img.shields.io/static/v1.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=linuxserver.io&message=GitHub&logo=github)](https://github.com/linuxserver "view the source for all of our repositories.")
 [![Open Collective](https://img.shields.io/opencollective/all/linuxserver.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=Supporters&logo=open%20collective)](https://opencollective.com/linuxserver "please consider helping us by either donating or contributing to our budget")
 
@@ -22,7 +21,6 @@ Find us at:
 * [Blog](https://blog.linuxserver.io) - all the things you can do with our containers including How-To guides, opinions and much more!
 * [Discord](https://linuxserver.io/discord) - realtime support / chat with the community and the team.
 * [Discourse](https://discourse.linuxserver.io) - post on our community forum.
-* [Fleet](https://fleet.linuxserver.io) - an online web interface which displays all of our maintained images.
 * [GitHub](https://github.com/linuxserver) - view the source for all of our repositories.
 * [Open Collective](https://opencollective.com/linuxserver) - please consider helping us by either donating or contributing to our budget
 
@@ -55,7 +53,6 @@ The architectures supported by this image are:
 | :----: | :----: | ---- |
 | x86-64 | ✅ | amd64-\<version tag\> |
 | arm64 | ✅ | arm64v8-\<version tag\> |
-| armhf | ❌ | |
 
 ## Version Tags
 
@@ -72,11 +69,15 @@ Access the webui at `<your-ip>:8989`, for more information check out [Sonarr](ht
 
 ### Media folders
 
-We have set `/tv` and `/downloads` as ***optional paths***, this is because it is the easiest way to get started. While easy to use, it has some drawbacks. Mainly losing the ability to hardlink (TL;DR a way for a file to exist in multiple places on the same file system while only consuming one file worth of space), or atomic move (TL;DR instant file moves, rather than copy+delete) files while processing content.
+We have set `/tv` and `/downloads` as optional paths, this is because it is the easiest way to get started. While easy to use, it has some drawbacks. Mainly losing the ability to hardlink (TL;DR a way for a file to exist in multiple places on the same file system while only consuming one file worth of space), or atomic move (TL;DR instant file moves, rather than copy+delete) files while processing content.
 
 Use the optional paths if you don't understand, or don't want hardlinks/atomic moves.
 
-The folks over at servarr.com wrote a good [write-up](https://wiki.servarr.com/Docker_Guide#Consistent_and_well_planned_paths) on how to get started with this.
+<details>
+<summary>Well planned paths</summary>
+
+The folks over at servarr.com wrote a good [write-up](https://wiki.servarr.com/docker-guide#consistent-and-well-planned-paths) on how to get started with this.
+</details>
 
 ## Read-Only Operation
 
@@ -91,7 +92,7 @@ This image can be run with a non-root user. For details please [read the docs](h
 To help you get started creating a container from this image you can either use docker-compose or the docker cli.
 
 >[!NOTE]
->Unless a parameter is flaged as 'optional', it is *mandatory* and a value must be provided.
+>Unless a parameter is flagged as 'optional', it is *mandatory* and a value must be provided.
 
 ### docker-compose (recommended, [click here for more info](https://docs.linuxserver.io/general/docker-compose))
 
@@ -308,6 +309,8 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **15.01.26:** - Rebase to Alpine 3.23.
+* **05.07.25:** - Rebase to Alpine 3.22.
 * **09.01.25:** - Fix rootless entrypoint.
 * **23.12.24:** - Rebase Alpine 3.21.
 * **31.05.24:** - Rebase Alpine 3.20.
